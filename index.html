@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,12 +12,13 @@
     />
 
     <link rel="icon" href="./src/assets/scissors.svg" />
+    <link rel="stylesheet" href="./src/styles/index.css" />
 
-    <link rel="stylesheet" href="./src//styles/index.css" />
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
     ></script>
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
@@ -28,20 +29,39 @@
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"
     />
 
-    <title>Salão Beleza & Estilo</title>
+    <title>Agende um atendimento</title>
+
+    <style>
+      .service-card {
+        border: 1px solid #444;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        background-color: #1c1c1c;
+        transition: border 0.3s, background-color 0.3s;
+      }
+
+      .service-card.selected {
+        border: 2px solid #facc15;
+        background-color: #2b2b2b;
+      }
+
+      .services-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    </style>
   </head>
   <body>
-    <div class="loading-screen" id="loading">
-      <div class="spinner"></div>
-    </div>
-
     <div class="container">
       <form class="form">
         <header>
           <h1>Agende um atendimento</h1>
           <p>
-            Selecione data, horário e informe o nome do cliente para criar o
-            agendamento
+            Selecione data, horário, serviço e informe o nome do cliente para
+            criar o agendamento.
           </p>
         </header>
 
@@ -57,7 +77,7 @@
         </div>
 
         <span class="label">Horários</span>
-        <ul id="hours" class="hours" aria-label="Horários disponíveis de manhã">
+        <ul id="hours" class="hours">
           <li data-period="morning" class="hour-period">Manhã</li>
           <li data-period="morning" value="09:00" class="hour hour-available">
             09:00
@@ -72,7 +92,7 @@
             12:00
           </li>
 
-          <li data-period="morning" class="hour-period">Tarde</li>
+          <li class="hour-period">Tarde</li>
           <li
             data-period="afternoon"
             value="13:00"
@@ -108,8 +128,7 @@
             18:00
           </li>
 
-          <li data-period="morning" class="hour-period">Noite</li>
-
+          <li class="hour-period">Noite</li>
           <li data-period="night" value="19:00" class="hour hour-available">
             19:00
           </li>
@@ -146,72 +165,46 @@
         <button type="submit" class="button">Agendar</button>
       </form>
 
-      <aside class="schedule">
-        <header>
-          <h1>Agendamentos</h1>
-          <p>Visualize os agendamentos de acordo com o dia selecionado</p>
-        </header>
+      <section class="service-info">
+        <h2>Nossos Serviços</h2>
+        <p>Confira os serviços disponíveis para agendamento:</p>
 
-        <section class="schedule-period">
-          <header>
-            <img src="./src/assets/morning.svg" alt="Manhã" />
-            <strong>Manhã</strong>
-            <span>09h-12h</span>
-          </header>
-          <ul id="period-morning" class="period">
-            <li>
-              <strong>11:00</strong>
-              <span>Isabelli Pereira</span>
-              <img
-                src="./src/assets/cancel.svg"
-                alt="Cancelar"
-                class="cancel-icon"
-              />
-            </li>
-          </ul>
-        </section>
-
-        <section class="schedule-period">
-          <header>
-            <img src="./src/assets/afternoon.svg" alt="Tarde" />
-            <strong>Tarde</strong>
-            <span>13h-18h</span>
-          </header>
-          <ul id="period-afternoon" class="period">
-            <li>
-              <strong>14:00</strong>
-              <span>Rosana Santos</span>
-              <img
-                src="./src/assets/cancel.svg"
-                alt="Cancelar"
-                class="cancel-icon"
-              />
-            </li>
-          </ul>
-        </section>
-
-        <section class="schedule-period">
-          <header>
-            <img src="./src/assets/night.svg" alt="noite" />
-            <strong>Noite</strong>
-            <span>19h-21h</span>
-          </header>
-          <ul id="period-night" class="period">
-            <li>
-              <strong>19:00</strong>
-              <span>Maria Lucia</span>
-              <img
-                src="./src/assets/cancel.svg"
-                alt="Cancelar"
-                class="cancel-icon"
-              />
-            </li>
-          </ul>
-        </section>
-      </aside>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Instalação e Manutenção de Chuveiro Elétrico</h3>
+            <p>Troca, instalação e reparos com segurança.</p>
+          </div>
+          <div class="service-card">
+            <h3>Troca ou Reparo na Fiação</h3>
+            <p>Manutenção preventiva e corretiva em circuitos elétricos.</p>
+          </div>
+          <div class="service-card">
+            <h3>Instalação e Troca de Tomadas</h3>
+            <p>Atualização de pontos de energia com acabamento moderno.</p>
+          </div>
+          <div class="service-card">
+            <h3>Troca ou Reparo de Lustres</h3>
+            <p>Instalação de lustres, plafons e luminárias com segurança.</p>
+          </div>
+        </div>
+      </section>
     </div>
+
     <script>
       emailjs.init("6lwfUtNN3ZKzlgNRU");
+
+      let selectedService = null;
+
+      document.querySelectorAll(".service-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          document
+            .querySelectorAll(".service-card")
+            .forEach((c) => c.classList.remove("selected"));
+          card.classList.add("selected");
+          selectedService = card.querySelector("h3").innerText;
+          console.log("Serviço selecionado:", selectedService);
+        });
+      });
 
       document
         .querySelector(".form")
@@ -222,102 +215,65 @@
           const hourElement = document.querySelector(
             ".hour-available.selected"
           );
-          const hour = hourElement ? hourElement.getAttribute("value") : null; // Obtém o valor ou null
+          const hour = hourElement ? hourElement.getAttribute("value") : null;
+          const client = document.getElementById("client").value;
+          const email = document.getElementById("email").value;
 
           if (!hour) {
             alert("Por favor, selecione um horário disponível.");
             return;
           }
 
-          const client = document.getElementById("client").value;
-          const email = document.getElementById("email").value;
-
-          if (!date || !client || !email) {
-            alert(
-              "Por favor, preencha todos os campos (Data, Cliente, E-mail) antes de agendar."
-            );
+          if (!selectedService) {
+            alert("Por favor, selecione um serviço.");
             return;
           }
 
-          const templateParamsSalao = {
-            date: date,
-            hour: hour,
-            client: client,
-            email: email,
-          };
+          if (!date || !client || !email) {
+            alert("Preencha todos os campos obrigatórios.");
+            return;
+          }
 
-          emailjs
-            .send("service_dm4a3il", "template_tojetch", templateParamsSalao)
-            .then(
-              function (response) {
-                console.log(
-                  "Agendamento enviado para o salão (SUCESSO):",
-                  response
-                );
-              },
-              function (error) {
-                console.error("Erro no envio para o salão (FALHA):", error);
-                alert(
-                  "Ocorreu um erro ao enviar o agendamento para o salão. Por favor, tente novamente."
-                );
-              }
-            );
-          const templateParamsCliente = {
-            email: email,
-            date: date,
-            hour: hour,
+          const params = {
             name: client,
+            email: email,
+            date: date,
+            hour: hour,
+            service: selectedService,
           };
 
-          emailjs
-            .send("service_dm4a3il", "template_tojetch", templateParamsCliente)
-            .then(
-              function (response) {
-                console.log(
-                  "Confirmação enviada para o cliente (SUCESSO):",
-                  response
-                );
-                alert(
-                  "Agendamento realizado com sucesso e confirmação enviada para o e-mail do cliente!"
-                );
-
-                document.querySelector(".form").reset();
-
-                if (hourElement) {
-                  hourElement.classList.remove("selected");
-                }
-              },
-              function (error) {
-                console.error("Erro no envio da confirmação (FALHA):", error);
-                alert(
-                  "Ocorreu um erro ao enviar a confirmação para o cliente. Por favor, verifique o e-mail e tente novamente."
-                );
-              }
-            );
+          emailjs.send("service_dm4a3il", "template_tojetch", params).then(
+            (response) => {
+              console.log("SUCESSO:", response);
+              alert("Agendamento realizado com sucesso!");
+              document.querySelector(".form").reset();
+              if (hourElement) hourElement.classList.remove("selected");
+              selectedService = null;
+              document
+                .querySelectorAll(".service-card")
+                .forEach((c) => c.classList.remove("selected"));
+            },
+            (error) => {
+              console.error("Erro:", error);
+              alert("Erro ao enviar o agendamento. Tente novamente.");
+            }
+          );
         });
 
-      // Função para selecionar o horário
       document.querySelectorAll(".hour").forEach(function (hourElement) {
         hourElement.addEventListener("click", function () {
           if (hourElement.classList.contains("hour-available")) {
-            document.querySelectorAll(".hour").forEach(function (el) {
-              el.classList.remove("selected");
-            });
-
+            document
+              .querySelectorAll(".hour")
+              .forEach((el) => el.classList.remove("selected"));
             hourElement.classList.add("selected");
-
-            console.log(
-              "Horário selecionado:",
-              hourElement.getAttribute("value")
-            );
-          } else {
           }
         });
       });
 
       flatpickr("#date", {
-        dateFormat: "Y-m-d", // formato que você espera
-        minDate: "today", // impede datas passadas
+        dateFormat: "Y-m-d",
+        minDate: "today",
         locale: {
           firstDayOfWeek: 1,
           weekdays: {
