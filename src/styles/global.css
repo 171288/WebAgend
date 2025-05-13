@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Catamaran", sans-serif;
+  font-size: 16px;
+}
+
+::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b8952e;
+}
+
+body {
+  background-color: #19181b;
+  color: #f5f4f5;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: calc(100vh - 1.5rem);
+  grid-template-areas: "form schedule";
+
+  padding: 0.75rem;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    font-size: 14px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #19181b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 0.5s ease forwards;
+  animation-delay: 1s;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #2e2c30;
+  border-top: 6px solid #d6b33d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Roda */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Some suavemente */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

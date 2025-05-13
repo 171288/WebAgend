@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="./src/assets/scissors.svg" />
+
+    <link rel="stylesheet" href="./src//styles/index.css" />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"
+    />
+
+    <title>Salão Beleza & Estilo</title>
+  </head>
+  <body>
+    <div class="loading-screen" id="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="container">
+      <form class="form">
+        <header>
+          <h1>Agende um atendimento</h1>
+          <p>
+            Selecione data, horário e informe o nome do cliente para criar o
+            agendamento
+          </p>
+        </header>
+
+        <label for="date" class="label">Data</label>
+        <div class="input">
+          <input
+            type="text"
+            id="date"
+            name="date"
+            placeholder="Selecione uma data"
+            required
+          />
+        </div>
+
+        <span class="label">Horários</span>
+        <ul id="hours" class="hours" aria-label="Horários disponíveis de manhã">
+          <li data-period="morning" class="hour-period">Manhã</li>
+          <li data-period="morning" value="09:00" class="hour hour-available">
+            09:00
+          </li>
+          <li data-period="morning" value="10:00" class="hour hour-available">
+            10:00
+          </li>
+          <li data-period="morning" value="11:00" class="hour hour-unavailable">
+            11:00
+          </li>
+          <li data-period="morning" value="12:00" class="hour hour-available">
+            12:00
+          </li>
+
+          <li data-period="morning" class="hour-period">Tarde</li>
+          <li
+            data-period="afternoon"
+            value="13:00"
+            class="hour hour-unavailable"
+          >
+            13:00
+          </li>
+          <li
+            data-period="afternoon"
+            value="14:00"
+            class="hour hour-unavailable"
+          >
+            14:00
+          </li>
+          <li data-period="afternoon" value="15:00" class="hour hour-available">
+            15:00
+          </li>
+          <li
+            data-period="afternoon"
+            value="16:00"
+            class="hour hour-unavailable"
+          >
+            16:00
+          </li>
+          <li
+            data-period="afternoon"
+            value="17:00"
+            class="hour hour-unavailable"
+          >
+            17:00
+          </li>
+          <li data-period="afternoon" value="18:00" class="hour hour-available">
+            18:00
+          </li>
+
+          <li data-period="morning" class="hour-period">Noite</li>
+
+          <li data-period="night" value="19:00" class="hour hour-available">
+            19:00
+          </li>
+          <li data-period="night" value="20:00" class="hour hour-available">
+            20:00
+          </li>
+          <li data-period="night" value="21:00" class="hour hour-unavailable">
+            21:00
+          </li>
+        </ul>
+
+        <label for="client" class="label">Cliente</label>
+        <div class="input">
+          <input
+            type="text"
+            id="client"
+            name="client"
+            placeholder="Nome do cliente"
+            required
+          />
+        </div>
+
+        <label for="email" class="label">E-mail do Cliente</label>
+        <div class="input">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="E-mail do cliente"
+            required
+          />
+        </div>
+
+        <button type="submit" class="button">Agendar</button>
+      </form>
+
+      <aside class="schedule">
+        <header>
+          <h1>Agendamentos</h1>
+          <p>Visualize os agendamentos de acordo com o dia selecionado</p>
+        </header>
+
+        <section class="schedule-period">
+          <header>
+            <img src="./src/assets/morning.svg" alt="Manhã" />
+            <strong>Manhã</strong>
+            <span>09h-12h</span>
+          </header>
+          <ul id="period-morning" class="period">
+            <li>
+              <strong>11:00</strong>
+              <span>Isabelli Pereira</span>
+              <img
+                src="./src/assets/cancel.svg"
+                alt="Cancelar"
+                class="cancel-icon"
+              />
+            </li>
+          </ul>
+        </section>
+
+        <section class="schedule-period">
+          <header>
+            <img src="./src/assets/afternoon.svg" alt="Tarde" />
+            <strong>Tarde</strong>
+            <span>13h-18h</span>
+          </header>
+          <ul id="period-afternoon" class="period">
+            <li>
+              <strong>14:00</strong>
+              <span>Rosana Santos</span>
+              <img
+                src="./src/assets/cancel.svg"
+                alt="Cancelar"
+                class="cancel-icon"
+              />
+            </li>
+          </ul>
+        </section>
+
+        <section class="schedule-period">
+          <header>
+            <img src="./src/assets/night.svg" alt="noite" />
+            <strong>Noite</strong>
+            <span>19h-21h</span>
+          </header>
+          <ul id="period-night" class="period">
+            <li>
+              <strong>19:00</strong>
+              <span>Maria Lucia</span>
+              <img
+                src="./src/assets/cancel.svg"
+                alt="Cancelar"
+                class="cancel-icon"
+              />
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+    <script>
+      emailjs.init("6lwfUtNN3ZKzlgNRU");
+
+      document
+        .querySelector(".form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const date = document.getElementById("date").value;
+          const hourElement = document.querySelector(
+            ".hour-available.selected"
+          );
+          const hour = hourElement ? hourElement.getAttribute("value") : null; // Obtém o valor ou null
+
+          if (!hour) {
+            alert("Por favor, selecione um horário disponível.");
+            return;
+          }
+
+          const client = document.getElementById("client").value;
+          const email = document.getElementById("email").value;
+
+          if (!date || !client || !email) {
+            alert(
+              "Por favor, preencha todos os campos (Data, Cliente, E-mail) antes de agendar."
+            );
+            return;
+          }
+
+          const templateParamsSalao = {
+            date: date,
+            hour: hour,
+            client: client,
+            email: email,
+          };
+
+          emailjs
+            .send("service_dm4a3il", "template_tojetch", templateParamsSalao)
+            .then(
+              function (response) {
+                console.log(
+                  "Agendamento enviado para o salão (SUCESSO):",
+                  response
+                );
+              },
+              function (error) {
+                console.error("Erro no envio para o salão (FALHA):", error);
+                alert(
+                  "Ocorreu um erro ao enviar o agendamento para o salão. Por favor, tente novamente."
+                );
+              }
+            );
+          const templateParamsCliente = {
+            email: email,
+            date: date,
+            hour: hour,
+            name: client,
+          };
+
+          emailjs
+            .send("service_dm4a3il", "template_tojetch", templateParamsCliente)
+            .then(
+              function (response) {
+                console.log(
+                  "Confirmação enviada para o cliente (SUCESSO):",
+                  response
+                );
+                alert(
+                  "Agendamento realizado com sucesso e confirmação enviada para o e-mail do cliente!"
+                );
+
+                document.querySelector(".form").reset();
+
+                if (hourElement) {
+                  hourElement.classList.remove("selected");
+                }
+              },
+              function (error) {
+                console.error("Erro no envio da confirmação (FALHA):", error);
+                alert(
+                  "Ocorreu um erro ao enviar a confirmação para o cliente. Por favor, verifique o e-mail e tente novamente."
+                );
+              }
+            );
+        });
+
+      // Função para selecionar o horário
+      document.querySelectorAll(".hour").forEach(function (hourElement) {
+        hourElement.addEventListener("click", function () {
+          if (hourElement.classList.contains("hour-available")) {
+            document.querySelectorAll(".hour").forEach(function (el) {
+              el.classList.remove("selected");
+            });
+
+            hourElement.classList.add("selected");
+
+            console.log(
+              "Horário selecionado:",
+              hourElement.getAttribute("value")
+            );
+          } else {
+          }
+        });
+      });
+
+      flatpickr("#date", {
+        dateFormat: "Y-m-d", // formato que você espera
+        minDate: "today", // impede datas passadas
+        locale: {
+          firstDayOfWeek: 1,
+          weekdays: {
+            shorthand: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+            longhand: [
+              "Domingo",
+              "Segunda-feira",
+              "Terça-feira",
+              "Quarta-feira",
+              "Quinta-feira",
+              "Sexta-feira",
+              "Sábado",
+            ],
+          },
+          months: {
+            shorthand: [
+              "Jan",
+              "Fev",
+              "Mar",
+              "Abr",
+              "Mai",
+              "Jun",
+              "Jul",
+              "Ago",
+              "Set",
+              "Out",
+              "Nov",
+              "Dez",
+            ],
+            longhand: [
+              "Janeiro",
+              "Fevereiro",
+              "Março",
+              "Abril",
+              "Maio",
+              "Junho",
+              "Julho",
+              "Agosto",
+              "Setembro",
+              "Outubro",
+              "Novembro",
+              "Dezembro",
+            ],
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
